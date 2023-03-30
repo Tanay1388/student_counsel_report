@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+
+
+<h1 style="color: rgb(28, 124, 13);">In House Student Report</h1><hr><hr>
+
+{% if request.user.is_superuser %}
+<a href="{% url 'admin:index' %}" style="color: #368e13;">Go to admin page</a>
+{% endif %}
+
+<div class="home-container">
+
+    <div>
+        {% if request.user.is_superuser %}
+        <a href="{% url 'create-topic' %}">Add New School</a><hr>
+        {% endif %}
+
+        {% if request.user.is_staff or request.user.is_superuser %}
+        {% include 'base/topics_component.html' %}
+        {% endif %}
+    </div>
+
+    <div>
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <h5>Total {{topic_count}}  Schools available</h5>
+            <h5>{{room_count}} Students available</h5>
+            {% endif %}
+            <!-- topic count is in views.py -->
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <a href="{% url 'create-room' %}">Add New Student</a><hr>
+            {% endif %}
+            <hr>
+            {% include 'base/feed_component.html' %}
+        {% else %}
+            <h1 style="color: rgb(28, 124, 13);">Please Login!</h1>
+        {% endif %}
+    </div>
+
+    <div>
+        {% if request.user.is_authenticated %} 
+        {% if request.user.is_superuser or request.user.is_staff %}
+        <a href="{% url 'export-rooms-csv' %}">CSV Download</a>
+        {% endif %}
+        <hr>
+        {% include 'base/activity_component.html' %}
+        {% endif %}
+       
+    </div>
+   
+</div>
+
+
+{% endblock content %}

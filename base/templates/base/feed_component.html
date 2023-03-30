@@ -1,0 +1,23 @@
+<div>
+    {% for room in rooms %}
+    <div>
+        {% if request.user.is_staff or request.user.is_superuser %}
+        <a href="{% url 'update-room' room.id %}" style="color: #d40fe6;">Edit</a>
+        {% endif %}
+        {% if request.user.is_superuser %}
+        <a href="{% url 'delete-room' room.id %}" style="color: #eb0c0c;">Delete</a>
+        <!-- to show the host of that room the following code -->
+        {% endif %}
+        {% if request.user == room.host or request.user.is_staff or request.user.is_superuser %}
+        <!-- <span>@{{room.host.username}}</span>  -->
+        <a href="{% url 'user-profile' room.host.id %}">{{room.host.username}}</a> 
+        <h5>{{room.id}}--<a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+        <small>{{room.topic.name}}</small> <br>
+        <small>{{room.Class.name}}</small>
+        <hr>
+        {% endif %}
+        <!-- <p>Like    subscribe loop in home.html</p> -->
+    </div>
+    
+    {% endfor %}
+</div>

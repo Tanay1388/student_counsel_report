@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+<!-- create from.py which takes model Room 
+    from models.py -->
+{% block content %}
+<div>
+    <form method="POST" action="">
+        <!-- post method as we are sending data, 
+            action: if I don't specify the action this 
+            going to send it to current url that we are 
+            add or we can send it to specific url-->
+        {% csrf_token %} 
+        <!-- we need to add in csrf token. This token is to be
+        send in every submit to stop malicious attack -->
+        <p>Are you sure you want to Create or Edit "{{obj}}"?</p>
+
+        {{form.as_p}} 
+        <!-- .as_p is to wrap a paragraph tag -->
+        <!-- now we want submit button -->
+        <input type="reset" value="Reset"/>
+        <input type="submit" value="Create/Update" />
+        
+        <!-- now go to  views.py and add new def like "createRoom"-->
+    </form>
+</div>
+
+{% endblock content %}

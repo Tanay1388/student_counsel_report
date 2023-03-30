@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<style>
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
+
+<div class="room-container">
+    <div>
+        <h2>Name: {{ room_name }}</h2>
+        <h1>Report of {{ room_name }}</h1>
+        <h3>School:  {{ room_topic }}</h3>
+        <h4>Class:  {{ room_class }}</h4>
+        <h6>Contact: {{room_contactID}}</h6>
+        <h6>Email-ID: {{room_emailID}}</h6>
+        <h4>Subjects: {{room_subjects}}</h4>
+        <h4>Dream Career: {{room_dreamCareer}}</h4>
+        <h4>Major Plan: {{room_majorPlan}}</h4>
+        <hr>
+        <p>Comments: {{ room_description }}</p>
+        <hr>
+        <p>Summary: {{ room_summary }}</p>
+        <hr>
+        <h4>Recomended Tests: {{room_recoTest}}</h4>
+        <h4>Recomended Universities: {{room_recoUniv}}</h4>
+
+
+        <div class="comment-wrapper">
+            <h6>Comments</h6>
+            <hr>
+
+            {% for message in room_messages %}
+            <div>
+                {% if request.user == message.user or request.user.is_superuser %}
+                <a href="{% url 'delete-message' pk=message.id %}">Delete</a>
+                {% endif %}
+                <small>@{{message.user}} posted {{message.created|timesince}} ago </small>
+                <!-- <small>@{{message.user}} {{message.created}} </small> -->
+                <!-- if you want to see the time when posted the the above line -->
+                <p>{{message.body}}</p>
+            </div>
+            {% endfor%}
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Write ur msg.." />
+                <input type="submit" value="Post" />
+            </form>
+        </div>
+        {% else %}
+        <div>
+            <a href="{% url 'login' %}">Please login to comment</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h3>
+            Commenters:
+            <!-- Now to add the many to many relation modify models.py -->
+            <!-- where we change the name of counsellor in model Room -->
+            {% for user in counsellors %}
+            <div>{{ forloop.counter }}) {{user.username}}</div>
+            {% endfor %}
+            <!-- As we have in views.py this code ' user = User.objects.get('username=username') ' -->
+        </h3>
+    </div>
+</div>
+{% endblock content %}

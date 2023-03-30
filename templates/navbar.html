@@ -1,0 +1,28 @@
+{% load static %}
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="color: #368e13;">
+        <img src="{% static 'images/Inspirus_Logo.png' %}" width="200" height="100" />
+    </a>
+    
+    <form method="GET" action="{% url 'home' %}">
+        <input type="text" name="q" style="color: #8e1f13; font-family: cursive;" placeholder="Search Rooms...."/>
+    </form>
+</div>
+
+
+
+{% if request.user.is_authenticated %}
+<p>Hello! {{request.user}}</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif%}
+<a href="/">Home</a>
+<br>
+{% if request.user.is_superuser or request.user.is_staff %}
+<a href="{% url 'register' %}">Register New Student</a>
+{% endif %}
+
+
+<hr>

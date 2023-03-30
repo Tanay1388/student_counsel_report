@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+<!-- create from.py which takes model Room 
+    from models.py -->
+{% block content %}
+<div>
+    <form method="POST" action="">
+   
+        {% csrf_token %} 
+        
+        <p>Are you sure, you want to Create?</p>
+
+        {{form.as_p}} 
+        
+        <input type="reset" value="Reset"/>
+        <input type="submit" value="Create/Update" />
+        
+        <!-- now go to  views.py and add new def like "createRoom"-->
+    </form>
+</div>
+
+{% endblock content %}

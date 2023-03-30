@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- use the line just bellow to begin styling -->
+{% load static %}
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE-edge'>
+    <title>Tanay_Draft</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Use the bellow line to begin styling -->
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <!-- <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> -->
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+    
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- To include an image from base/static/images -->
+    <img src="{% static 'images/Inspirus-Favicon-200_200.png'%}"  width="50" height="50"/>
+
+    
+    {% block content %}
+
+    {% endblock content %}
+</body>
+
+</html>

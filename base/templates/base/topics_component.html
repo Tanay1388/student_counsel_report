@@ -1,0 +1,13 @@
+<h6>Browse Schools</h6><hr>
+<div>
+    <a href="{% url 'home' %}">All</a>
+</div>
+<!-- before the linebellow go to views.py and import Topic from
+models.py and then topics = Topic.objects.all() in def home
+context = {'rooms': rooms, 'topics': topics}  -->
+{% for topic in topics %}
+<div>
+    <!-- {% url 'home' %}?{{topic.name}}" "? sign must" -->
+    <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+</div>
+{% endfor %}

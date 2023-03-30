@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<style>
+    .login-container {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+    }
+    /* img {width: 500px; height: 500px;} */
+</style>
+
+
+<div class="login-container">
+
+    <div>
+        <img src="{% static 'images/islp.png' %}" width="500" height="500" />
+    </div>    
+
+    <div>
+        {% if page == 'login' %}
+
+        <div>
+            <br><br><br><br><br><br>
+            <form method="POST" action="">
+                {% csrf_token %}
+        
+                <label>Username:</label>
+                <input type="text" name="username" placeholder="Enter Username" />
+                <br>
+                <label>Password: </label>
+                <input type="password" name="password" placeholder="Enter Password" />
+        
+                <input type="submit" value="Login" />
+            </form>
+            <p>Aren't you registered yet? Contact <a href="https://www.inspiruseducation.com/">Inspirus Education</a></p>
+            <!-- <a href="{% url 'register' %}">Register</a> -->
+        </div>
+        
+        {% else %}
+        
+        <div>
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{form.as_p}}
+        
+                <input type="submit" value="Register" />
+            </form>
+            <p>Are you already registered?</p>
+            <a href="{% url 'login' %}">Login</a>
+        
+        </div>
+        {% endif %}
+    </div>
+    
+</div>
+
+
+{% endblock content %}
