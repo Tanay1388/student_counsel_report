@@ -9,10 +9,7 @@
             <!-- <p>{{message}}</p> -->
             <p>{{message.body}}</p> 
             {% endif %}
-            <!-- this code will show whole msg -->
-            <!-- but if i want to have short or only 50 char -->
-            <!-- As in models.py we have "return self.body[0:50]" in the -->
-            <!-- Message objest -->
+           
             {% if request.user == message.user or request.user.is_superuser %}
             <a href="{% url 'delete-message' pk=message.id %}">Delete</a>
             <hr>
