@@ -275,7 +275,7 @@ def deleteRoom(request, pk):
 def deleteMessage(request, pk):
     message = Message.objects.get(id=pk)
 
-    if request.user != message.user:
+    if request.user != message.user: #or not request.user.is_superuser :
         # message has a owner which is defines as user in models.py
         # in Message object
         messages.error(request, 'You are not authorized to delete this room')
