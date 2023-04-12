@@ -278,7 +278,7 @@ def deleteMessage(request, pk):
     if request.user != message.user: #or not request.user.is_superuser :
         # message has a owner which is defines as user in models.py
         # in Message object
-        messages.error(request, 'You are not authorized to delete this room')
+        messages.error(request, 'If you are superuser and want to delete the message then change code in views.py if you dont want to see delete option change html file')
         return redirect('home')
     # visible with differe host
 
