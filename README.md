@@ -18,3 +18,5 @@ for windows system process would be different
 pip install -r requirements.txt
 ```
 Now you are ready to proceed.
+### As an superuser
+you can't delete the messages by another user, if you want to change please go to views.py
